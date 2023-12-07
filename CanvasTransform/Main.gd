@@ -23,7 +23,11 @@ func _process(delta):
 		var distance = velocity.normalized() * speed * delta
 		position += distance
 		position = position.clamp(Vector2.ZERO, screenSize)
-		print_rich("velocity [color=red][b]{velocity}[/b][/color], position [color=green][b]{position}[/b][/color]".format({
+		var canvasPos = get_global_transform() * position
+		var screenPos = get_viewport().get_screen_transform() * get_global_transform_with_canvas() * position
+		print_rich("velocity [color=red][b]{velocity}[/b][/color], position [color=green][b]{position}[/b][/color], canvasPos [color=purple][b]{canvasPos}[/b][/color], screenPos [color=yellow][b]{screenPos}[/b][/color]".format({
 			"velocity":velocity,
 			"position":position,
+			"canvasPos":canvasPos,
+			"screenPos":screenPos,
 		}))
